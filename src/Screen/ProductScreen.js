@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Rating from '../Components/Rating';
-import products from '../products';
 import {Row, Col, Image, ListGroup, Button, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 
 const ProductScreen = ({match}) => {
-    const pd = products.find(pd => pd._id === match.params.id);
+    const [product, setProduct] = useState({});
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const { data } = await axios.get(`http://localhost:5000/api/products/${match.params.id}`);
+
+            setProduct(data);
+        }
+        fetchProduct()
+    }, [match.params.id])
+
     return (
         <>
             <Link to='/' className="btn btn-light" >
@@ -13,21 +24,21 @@ const ProductScreen = ({match}) => {
             </Link>
             <Row >
                 <Col md='6'>
-                    <Image className='rounded' src={pd.image} alt={pd.name} fluid />
+                    <Image className='rounded' src={product.image} alt={product.name} fluid />
                 </Col>
                 <Col md='3' >
                     <ListGroup variant='flush' >
                         <ListGroup.Item>
-                            <h2>{pd.name}</h2>
+                            <h2>{product.name}</h2>
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            <Rating value={pd.rating} text={`${pd.numReviews} reviews`} />
+                            <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            $ {pd.price}
+                            $ {product.price}
                         </ListGroup.Item>
                         <ListGroup.Item>
-                            Description: {pd.description}
+                            Description: {product.description}
                         </ListGroup.Item>
                         
                     </ListGroup>
@@ -38,20 +49,20 @@ const ProductScreen = ({match}) => {
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Price: </Col>
-                                    <Col>$ {pd.price}</Col>
+                                    <Col>$ {product.price}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 <Row>
                                     <Col>Status: </Col>
-                                    <Col>{pd.countInStock > 0 ? "In Stock" : "Out Of Stock"}</Col>
+                                    <Col>{product.countInStock > 0 ? "In Stock" : "Out Of Stock"}</Col>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item className='text-center'>
                                 <Button 
                                     className='btn-block rounded' 
                                     type="button" 
-                                    disabled={pd.countInStock === 0}>
+                                    disabled={product.countInStock === 0}>
                                     Add To Cart
                                 </Button>
                             </ListGroup.Item>
