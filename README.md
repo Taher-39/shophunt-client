@@ -1,1 +1,1 @@
-<h1>ShopHunt E-commerce Project</h1>
+<h2>ShopHunt E-commerce Project</h2>
