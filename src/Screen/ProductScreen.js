@@ -1,28 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Rating from "../Components/Rating";
 import { Row, Col, Image, ListGroup, Button, Card } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import axios from 'axios';
 import { useSelector, useDispatch } from "react-redux";
-import { detailsProduct } from "../Action/productAction";
+import { detailsProduct } from "../Redux/Action/productAction";
 import Loader from "../Components/Loader";
 import Message from "../Components/Message";
 
-const ProductScreen = ({ match }) => {
-  // const [product, setProduct] = useState({});
+const ProductScreen = ({ history, match }) => {
+  const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
   useEffect(() => {
-    // const fetchProduct = async () => {
-    //     const { data } = await axios.get(`http://localhost:5000/api/products/${match.params.id}`);
-
-    //     setProduct(data);
-    // }
-    // fetchProduct()
     dispatch(detailsProduct(match.params.id));
   }, [match, dispatch]);
+
+  const cartHandler = () => {
+    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
 
   return (
     <>
@@ -77,8 +75,29 @@ const ProductScreen = ({ match }) => {
                     </Col>
                   </Row>
                 </ListGroup.Item>
+                {product.countInStock > 0 && (
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Qty:</Col>
+                      <Col>
+                        <Form.Control
+                          as="select"
+                          value={qty}
+                          onChange={(e) => setQty(e.target.value)}
+                        >
+                          {[...Array(product.countInStock).keys()].map((n) => (
+                            <option key={n + 1} value={n + 1}>
+                              {n + 1}
+                            </option>
+                          ))}
+                        </Form.Control>
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+                )}
                 <ListGroup.Item className="text-center">
                   <Button
+                    onClick={cartHandler}
                     className="btn-block rounded"
                     type="button"
                     disabled={product.countInStock === 0}
