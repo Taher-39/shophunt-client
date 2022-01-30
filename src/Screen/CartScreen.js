@@ -33,7 +33,6 @@ const CartScreen = ({ history, match, location }) => {
   };
 
   const handleCheckOut = () => {
-    console.log("checkOutPage");
     history.push("/login?redirect=shipping");
   };
   return (

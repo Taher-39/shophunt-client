@@ -27,7 +27,8 @@ const initialState = {
   cart: { cartItems: cartItemsFromStorage },
   userLogin: { userInfo: userLoginInfoFromStorage }
 };
-const middleware = [thunk];
+
+const middleware = [ thunk ];
 const store = createStore(
   reducer,
   initialState,
