@@ -33,7 +33,6 @@ const UserProfileScreen = ({ location, history }) => {
       if (!user.name) {
         dispatch(getUserDetails("profile"));
       } else {
-        console.log(user.name);
         setName(user.name);
         setEmail(user.email);
       }

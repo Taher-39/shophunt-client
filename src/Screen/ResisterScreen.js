@@ -44,7 +44,7 @@ const ResisterScreen = ({ location, history }) => {
 
   return (
     <Container>
-      <Row className="justify-contain-center">
+      <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
           <h1>Sign Up</h1>
           {error && <Message variant="danger">{error}</Message>}
@@ -91,7 +91,7 @@ const ResisterScreen = ({ location, history }) => {
               ></Form.Control>
             </Form.Group>
 
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" className="mt-4">
               Resister
             </Button>
           </Form>

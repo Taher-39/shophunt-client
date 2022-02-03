@@ -37,7 +37,7 @@ const LoginScreen = ({ location, history }) => {
 
   return (
     <Container>
-      <Row className="justify-contain-center">
+      <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
           <h1>Sign In</h1>
           {error && <Message variant="danger">{error}</Message>}
@@ -63,7 +63,7 @@ const LoginScreen = ({ location, history }) => {
               ></Form.Control>
             </Form.Group>
 
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="primary" className="mt-4">
               Sign In
             </Button>
           </Form>
