@@ -5,6 +5,7 @@ import {
   USER_LOGOUT,
   USER_PROFILE_DETAILS_FAIL,
   USER_PROFILE_DETAILS_REQUEST,
+  USER_PROFILE_DETAILS_RESET,
   USER_PROFILE_DETAILS_SUCCESS,
   USER_PROFILE_UPDATE_FAIL,
   USER_PROFILE_UPDATE_REQUEST,
@@ -29,11 +30,10 @@ export const userLoginReducer = (state = {}, action) => {
   }
 };
 
-
 export const userResisterReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_RESISTER_REQUEST:
-    return { loading: true };
+      return { loading: true };
     case USER_RESISTER_SUCCESS:
       return { loading: false, userInfo: action.payload };
     case USER_RESISTER_FAIL:
@@ -46,11 +46,13 @@ export const userResisterReducer = (state = {}, action) => {
 export const userDetailsReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_PROFILE_DETAILS_REQUEST:
-    return { ...state, loading: true };
+      return { ...state, loading: true };
     case USER_PROFILE_DETAILS_SUCCESS:
       return { loading: false, user: action.payload };
     case USER_PROFILE_DETAILS_FAIL:
       return { loading: false, error: action.payload };
+    case USER_PROFILE_DETAILS_RESET:
+      return { user: {} };
     default:
       return state;
   }
@@ -59,7 +61,7 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
 export const userProfileUpdateReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_PROFILE_UPDATE_REQUEST:
-    return { loading: true };
+      return { loading: true };
     case USER_PROFILE_UPDATE_SUCCESS:
       return { loading: false, success: true, userInfo: action.payload };
     case USER_PROFILE_UPDATE_FAIL:
@@ -68,4 +70,3 @@ export const userProfileUpdateReducer = (state = {}, action) => {
       return state;
   }
 };
-
