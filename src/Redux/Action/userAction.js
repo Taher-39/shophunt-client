@@ -22,6 +22,9 @@ import {
   USER_RESISTER_FAIL,
   USER_RESISTER_REQUEST,
   USER_RESISTER_SUCCESS,
+  USER_UPDATE_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
 } from "../Constant/userConstant";
 
 export const login = (email, password) => async (dispatch) => {
@@ -214,6 +217,7 @@ export const getTotalUsersAction = () => async (dispatch, getState) => {
     });
   }
 };
+
 export const userDeleteAction = (id) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -238,6 +242,48 @@ export const userDeleteAction = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const userUpdateAction = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `http://localhost:5000/api/users/${user._id}`,
+      user,
+      config
+    );
+
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+    });
+
+    dispatch({
+      type: USER_PROFILE_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

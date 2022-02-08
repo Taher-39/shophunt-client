@@ -14,6 +14,7 @@ import PaymentScreen from "./Screen/PaymentScreen";
 import PlaceOrderScreen from "./Screen/PlaceOrderScreen";
 import OrderScreen from "./Screen/OrderScreen";
 import AllUserScreen from "./Screen/AllUserScreen";
+import UserEditScreen from "./Screen/UserEditScreen";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <main className="py-3">
         <Container>
           <Route path="/admin/userlist" component={AllUserScreen} />
+          <Route path="/admin/user/:id/edit" component={UserEditScreen} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/order/:id" component={OrderScreen} />
           <Route path="/placeOrder" component={PlaceOrderScreen} />
