@@ -53,7 +53,7 @@ const UserEditScreen = ({ match, history }) => {
       <Container>
         <Row className="justify-content-md-center">
           <Col xs={12} md={6}>
-            <h1>EDIT USER INFORMATION</h1>
+            <h1>EDIT USER</h1>
             {errorUpdate && <Message variant="danger">{errorUpdate}</Message>}
             {loadingUpdate && <Loader />}
             {loading ? (
