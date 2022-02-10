@@ -15,28 +15,35 @@ import {
   PRODUCTS_UPDATE_FAIL,
   PRODUCTS_UPDATE_SUCCESS,
   PRODUCTS_UPDATE_REQUEST,
+  PRODUCTS_REVIEW_CREATE_REQUEST,
+  PRODUCTS_REVIEW_CREATE_SUCCESS,
+  PRODUCTS_REVIEW_CREATE_FAIL,
 } from "../Constant/ProductsConstants";
 
-export const listProducts = () => async (dispatch) => {
-  try {
-    dispatch({ type: PRODUCTS_LIST_REQUEST });
+export const listProducts =
+  (keyword = "", pageNumber = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: PRODUCTS_LIST_REQUEST });
 
-    const { data } = await axios.get("http://localhost:5000/api/products");
+      const { data } = await axios.get(
+        `http://localhost:5000/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+      );
 
-    dispatch({
-      type: PRODUCTS_LIST_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: PRODUCTS_LIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: PRODUCTS_LIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCTS_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const detailsProduct = (id) => async (dispatch) => {
   try {
@@ -161,3 +168,38 @@ export const updateProductAction = (product) => async (dispatch, getState) => {
     });
   }
 };
+
+export const createProductReviewAction =
+  (productId, review) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: PRODUCTS_REVIEW_CREATE_REQUEST });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      await axios.post(
+        `http://localhost:5000/api/products/${productId}/reviews`,
+        review,
+        config
+      );
+
+      dispatch({
+        type: PRODUCTS_REVIEW_CREATE_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: PRODUCTS_REVIEW_CREATE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
