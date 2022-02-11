@@ -11,6 +11,7 @@ import {
 import Loader from "../Components/Loader";
 import Message from "../Components/Message";
 import { PRODUCTS_REVIEW_CREATE_RESET } from "../Redux/Constant/ProductsConstants";
+import Meta from "../Components/Meta";
 
 const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
@@ -27,11 +28,11 @@ const ProductScreen = ({ history, match }) => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if(successReview){
-      alert("Review submitted.")
-      setRating(0)
-      setComment("")
-      dispatch({type: PRODUCTS_REVIEW_CREATE_RESET})
+    if (successReview) {
+      alert("Review submitted.");
+      setRating(0);
+      setComment("");
+      dispatch({ type: PRODUCTS_REVIEW_CREATE_RESET });
     }
     dispatch(detailsProduct(match.params.id));
   }, [match, dispatch, successReview]);
@@ -41,10 +42,13 @@ const ProductScreen = ({ history, match }) => {
   };
 
   const submitReviewHandler = (e) => {
-    e.preventDefault()
-    dispatch(createProductReviewAction(match.params.id, {
-      rating, comment
-    }))
+    e.preventDefault();
+    dispatch(
+      createProductReviewAction(match.params.id, {
+        rating,
+        comment,
+      })
+    );
   };
   return (
     <>
@@ -57,6 +61,8 @@ const ProductScreen = ({ history, match }) => {
         <Message variant="danger">{error}</Message>
       ) : (
         <>
+          <Meta title={product.name} />
+
           <Row>
             <Col md="6">
               <Image

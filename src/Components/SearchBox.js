@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, InputGroup, FormControl } from "react-bootstrap";
 
 const SearchBox = ({ history }) => {
   const [keyword, setKeyword] = useState("");
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
@@ -11,17 +12,25 @@ const SearchBox = ({ history }) => {
       history.push("/");
     }
   };
+
   return (
-    <Form onSubmit={submitHandler} inline="true" >
-      <Form.Control
-        type="text"
-        name="q"
+    <Form onSubmit={submitHandler} inline>
+    
+      <InputGroup className="mb-3">
+        <FormControl
         onChange={(e) => setKeyword(e.target.value)}
+        name="q"
+        type="text"
+
         className="mr-sm-2 ml-sm-5"
-      ></Form.Control>
-      <Button type="submit" variant="outline-success" className="p-2">
+          placeholder="Search Products..."
+          aria-label="Recipient's username"
+          aria-describedby="basic-addon2"
+        />
+        <Button type="submit" variant="outline-success" className="p-2" id="button-addon2">
         Search
-      </Button>
+        </Button>
+      </InputGroup>
     </Form>
   );
 };

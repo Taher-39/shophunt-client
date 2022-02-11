@@ -10,11 +10,13 @@ import {
 } from "../Redux/Action/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import { PRODUCTS_CREATE_RESET } from "../Redux/Constant/ProductsConstants";
+import Paginate from "../Components/Paginate";
 
-const ProductListScreen = ({ history }) => {
-  const dispatch = useDispatch();
+const ProductListScreen = ({ history, match }) => {
+  const pageNumber = match.params.pageNumber || 1
+  const dispatch = useDispatch(); 
   const productsList = useSelector((state) => state.productsList);
-  const { error, loading, products } = productsList;
+  const { error, loading, products, pages, page } = productsList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -44,7 +46,7 @@ const ProductListScreen = ({ history }) => {
     if (createSuccess) {
       history.push(`/admin/product/${createdProduct._id}/edit`);
     } else {
-      dispatch(listProducts());
+      dispatch(listProducts("", pageNumber));
     }
   }, [
     dispatch,
@@ -53,6 +55,7 @@ const ProductListScreen = ({ history }) => {
     deleteSuccess,
     createSuccess,
     createdProduct,
+    pageNumber
   ]);
 
   const createProductHandler = () => {
@@ -86,6 +89,7 @@ const ProductListScreen = ({ history }) => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
+        <>
         <Table striped bordered hover responsive className="table-sm">
           <thead>
             <tr>
@@ -123,6 +127,8 @@ const ProductListScreen = ({ history }) => {
             ))}
           </tbody>
         </Table>
+        <Paginate pages={pages} page={page} isAdmin={true} ></Paginate>
+        </>
       )}
     </>
   );
