@@ -38,7 +38,7 @@ export const createOrderAction = (order) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.post(
-      `http://localhost:5000/api/orders`,
+      `https://warm-coast-97287.herokuapp.com/api/orders`,
       order,
       config
     );
@@ -75,7 +75,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders/${id}`,
+      `https://warm-coast-97287.herokuapp.com/api/orders/${id}`,
       config
     );
 
@@ -113,7 +113,7 @@ export const payOrder =
       };
 
       const { data } = await axios.put(
-        `http://localhost:5000/api/orders/${orderId}/pay`,
+        `https://warm-coast-97287.herokuapp.com/api/orders/${orderId}/pay`,
         paymentResult,
         config
       );
@@ -133,42 +133,42 @@ export const payOrder =
     }
   };
 
-  export const deliverOrder = (order) => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: ORDER_DELIVER_REQUEST,
-      })
-  
-      const {
-        userLogin: { userInfo },
-      } = getState()
-  
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      }
-  
-      const { data } = await axios.put(
-        `http://localhost:5000/api/orders/${order._id}/deliver`,
-        {},
-        config
-      )
-  
-      dispatch({
-        type: ORDER_DELIVER_SUCCESS,
-        payload: data,
-      })
-    } catch (error) {
-      dispatch({
-        type: ORDER_DELIVER_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
+export const deliverOrder = (order) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ORDER_DELIVER_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `https://warm-coast-97287.herokuapp.com/api/orders/${order._id}/deliver`,
+      {},
+      config
+    );
+
+    dispatch({
+      type: ORDER_DELIVER_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DELIVER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
+};
 
 export const myOrderListAction = () => async (dispatch, getState) => {
   try {
@@ -187,7 +187,7 @@ export const myOrderListAction = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders/myOrders`,
+      `https://warm-coast-97287.herokuapp.com/api/orders/myOrders`,
       config
     );
 
@@ -223,7 +223,7 @@ export const totalOrderAction = () => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/orders`,
+      `https://warm-coast-97287.herokuapp.com/api/orders`,
       config
     );
 

@@ -40,7 +40,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/users/login",
+      "https://warm-coast-97287.herokuapp.com/api/users/login",
       { email, password },
       config
     );
@@ -83,7 +83,7 @@ export const resister = (name, email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:5000/api/users",
+      "https://warm-coast-97287.herokuapp.com/api/users",
       { name, email, password },
       config
     );
@@ -128,7 +128,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:5000/api/users/${id}`,
+      `https://warm-coast-97287.herokuapp.com/api/users/${id}`,
       config
     );
 
@@ -165,7 +165,7 @@ export const getUserProfileUpdate = (user) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `http://localhost:5000/api/users/profile`,
+      `https://warm-coast-97287.herokuapp.com/api/users/profile`,
       user,
       config
     );
@@ -201,7 +201,10 @@ export const getTotalUsersAction = () => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(`http://localhost:5000/api/users`, config);
+    const { data } = await axios.get(
+      `https://warm-coast-97287.herokuapp.com/api/users`,
+      config
+    );
 
     dispatch({
       type: USER_LIST_SUCCESS,
@@ -234,7 +237,10 @@ export const userDeleteAction = (id) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`http://localhost:5000/api/users/${id}`, config);
+    await axios.delete(
+      `https://warm-coast-97287.herokuapp.com/api/users/${id}`,
+      config
+    );
 
     dispatch({
       type: USER_DELETE_SUCCESS,
@@ -268,7 +274,7 @@ export const userUpdateAction = (user) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.put(
-      `http://localhost:5000/api/users/${user._id}`,
+      `https://warm-coast-97287.herokuapp.com/api/users/${user._id}`,
       user,
       config
     );

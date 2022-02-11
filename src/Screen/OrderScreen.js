@@ -50,7 +50,7 @@ const OrderScreen = ({ match, history }) => {
     }
     const addPayPalScript = async () => {
       const { data: clientId } = await axios.get(
-        "http://localhost:5000/api/config/paypal"
+        "https://warm-coast-97287.herokuapp.com/api/config/paypal"
       );
       const script = document.createElement("script");
       script.type = "text/javascript";
@@ -218,9 +218,8 @@ const OrderScreen = ({ match, history }) => {
               {loadingDeliver && <Loader></Loader>}
 
               <ListGroup.Item>
-                {
-                 userInfo &&
-                 userInfo.admin &&
+                {userInfo &&
+                  userInfo.admin &&
                   order.isPaid &&
                   !order.isDelivered && (
                     <Button

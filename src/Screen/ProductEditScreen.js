@@ -84,7 +84,7 @@ const ProductEditScreen = ({ match, history }) => {
         },
       };
       const { data } = await axios.post(
-        "http://localhost:5000/api/upload",
+        "https://warm-coast-97287.herokuapp.com/api/upload",
         formData,
         config
       );
@@ -148,7 +148,7 @@ const ProductEditScreen = ({ match, history }) => {
                     custom
                     onChange={uploadFileHandler}
                   ></Form.File> */}
-                  <input type="file" onChange={uploadFileHandler}   />
+                  <input type="file" onChange={uploadFileHandler} />
                   {uploading && <Loader />}
                 </Form.Group>
 
