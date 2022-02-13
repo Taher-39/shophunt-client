@@ -8,6 +8,7 @@ const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
+
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
@@ -22,7 +23,7 @@ const ShippingScreen = ({ history }) => {
   };
   return (
     <Container>
-      <CheckOutSteps step1 step2 />  
+      <CheckOutSteps step1 step2 />
       <Row className="justify-content-md-center">
         <Col xs={12} md={6}>
           <h1>Shipping</h1>

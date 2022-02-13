@@ -10,7 +10,7 @@ import {
 import { myOrderListAction } from "../Redux/Action/orderAction";
 import { useSelector, useDispatch } from "react-redux";
 
-const UserProfileScreen = ({ location, history }) => {
+const UserProfileScreen = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

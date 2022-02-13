@@ -1,4 +1,5 @@
 import axios from "axios";
+import { CART_REMOVE_SHIPPING_ADDRESS } from "../Constant/cartConstant";
 import { ORDER_LIST_MY_RESET } from "../Constant/orderConstant";
 import {
   USER_DELETE_FAIL,
@@ -68,6 +69,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_LIST_RESET });
   dispatch({ type: USER_PROFILE_DETAILS_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
+  dispatch({ type: CART_REMOVE_SHIPPING_ADDRESS });
 };
 
 export const resister = (name, email, password) => async (dispatch) => {

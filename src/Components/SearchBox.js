@@ -14,7 +14,7 @@ const SearchBox = ({ history }) => {
   };
 
   return (
-    <Form onSubmit={submitHandler} inline>
+    <Form onSubmit={submitHandler} inline="true">
     
       <InputGroup className="mb-3">
         <FormControl
